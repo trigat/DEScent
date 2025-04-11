@@ -8,4 +8,5 @@ This project is a work in progress, and functionality will continue to expand ov
 
 # Tested Hardware
   ▌ ACS ACR1252U-DOT
+  
   ▌ HID Omnikey CL
