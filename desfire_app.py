@@ -65,15 +65,15 @@ def free_memory(connection):
     print(f"Card status: {sw1:02X} {sw2:02X}")
 
     if sw1 == 0x91 and sw2 == 0x00:
-        if len(response) == 3:
-            # Little-endian to int
-            free_mem_bytes = int.from_bytes(response, byteorder='little')
-            print(f"Free memory: {free_mem_bytes} bytes")
-            print(f"≈ {free_mem_bytes / 1024:.2f} KB")
+        if len(response) >= 3:
+            free_mem_bytes = int.from_bytes(response[:3], byteorder='little')
+            print(f"Free memory: {free_mem_bytes} bytes ({free_mem_bytes / 1024:.2f} KB)")
+            if len(response) > 3:
+                return
         else:
             print("Unexpected response length for free memory.")
     else:
-        print(f"Card responded with an unexpected status: {sw1:02X} {sw2:02X}")
+        print(f"Card responded with unexpected status: {sw1:02X} {sw2:02X}")
 
 def format_picc(connection):
     confirm = input("Are you sure you want to format the card? (y/n): ").strip().lower()
